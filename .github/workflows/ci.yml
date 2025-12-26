@@ -1,0 +1,40 @@
+name: Unit and E2E test
+
+on: 
+ push:
+  branches: ["main"]
+ pull_request: 
+  branches: ["main"]
+jobs: 
+ test-and-check:
+  runs-on: ubuntu-latest
+  steps: 
+   - uses: actions/checkout@v4
+     
+      # Setup pnpm
+   - uses: pnpm/action-setup@v3
+     with: 
+      version: v10.26.1
+         
+   - name: Setup Nodejs
+     uses: actions/setup-node@v4
+     with: 
+      node-version: 20
+      cache: 'pnpm'
+      # Install dependencies
+   - name: Install dependencies
+     run: pnpm install
+      # Type Checking (No build needed, just checks TS errors)
+   - name: Type Check
+     run: pnpm tsc --noEmit
+      # Run unit test
+   - name: Run Vitest
+     run: pnpm test:ui
+      # Run e2e test
+   - name: Cypress run
+     uses: cypress-io/github-action@v6
+     with:
+      install: false # We already installed dependencies above
+      command: pnpm exec cypress run
+      start: pnpm dev # Starts your Vite dev server
+      wait-on: 'http://localhost:5173'
