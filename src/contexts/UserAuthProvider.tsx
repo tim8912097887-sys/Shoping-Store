@@ -4,6 +4,7 @@ import type { LoginUser } from "../schemas/loginUser";
 import type { SignupUser } from "../schemas/signupUser";
 import { loginUser, signupUser } from "../apis/user.api";
 import useCurrentUser from "../hooks/useCurrentUser";
+import { useNavigate } from "react-router";
 
 type ContextValue = {
    token: string
@@ -19,7 +20,7 @@ type ContextValue = {
 const UserAuthContext = createContext<ContextValue | null>(null);
 
 const UserAuthProvider = ({ children }: PropsWithChildren) => {
-
+    const navigation = useNavigate();
     const [token,saveToken] = useToken();
     const [errorMsg,setErrorMsg] = useState("");
     const [currentUser,saveUser] = useCurrentUser();
@@ -46,6 +47,7 @@ const UserAuthProvider = ({ children }: PropsWithChildren) => {
         setErrorMsg("");
         saveUser("");
         saveToken("");
+        navigation("/login");
     }
 
     // Derived state

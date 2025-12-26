@@ -19,7 +19,7 @@ const TitleBar = () => {
                       <Link to='/login'>Login</Link>
                       <Link to='/signup'>Signup</Link>
                     </>
-                    :<Link to='/login' onClick={logout}>Logout</Link>
+                    :<button onClick={logout}>Logout</button>
                 }
             </div>
         </div>
