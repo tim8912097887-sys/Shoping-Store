@@ -31,13 +31,15 @@ jobs:
    - name: Run Vitest
      run: pnpm test:ui
       # Run e2e test
+   - name: Install Cypress Binary
+     run: pnpm exec cypress install
+
    - name: Cypress run
      uses: cypress-io/github-action@v6
      with:
-      # By providing the build command, the action knows how to handle the setup
-      build: pnpm install 
+      # We manually installed everything, so now we tell the action 
+      # just to run the tests and start the server.
+      install: false 
       command: pnpm exec cypress run
       start: pnpm dev
       wait-on: 'http://localhost:5173'
-      # This tells the action to use pnpm for its internal logic
-      install-command: pnpm install
