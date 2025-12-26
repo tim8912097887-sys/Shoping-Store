@@ -34,7 +34,10 @@ jobs:
    - name: Cypress run
      uses: cypress-io/github-action@v6
      with:
-      install: false # We already installed dependencies above
+      # By providing the build command, the action knows how to handle the setup
+      build: pnpm install 
       command: pnpm exec cypress run
-      start: pnpm dev # Starts your Vite dev server
+      start: pnpm dev
       wait-on: 'http://localhost:5173'
+      # This tells the action to use pnpm for its internal logic
+      install-command: pnpm install
