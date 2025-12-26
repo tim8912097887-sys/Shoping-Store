@@ -58,7 +58,7 @@ const RegisterForm = ({ isLogin }: Props) => {
         <form className="flex flex-col gap-3" onSubmit={isLogin?onLogin:onSignup}>
             <div className="flex flex-col gap-2">
             <label htmlFor="username">Username:</label>
-            <input className="border-2 border-black py-1 px-3 rounded" value={state.username} type="text" id="username" onChange={setUsername}  />
+            <input className="border-2 border-black py-1 px-3 rounded" value={state.username} type="text" name="username" id="username" onChange={setUsername}  />
             {/* Custom error message for specific field */}
             {errorMsg && errorMsg.includes("Username") && <ErrorMsg msg={errorMsg} />}
             </div>
@@ -66,14 +66,14 @@ const RegisterForm = ({ isLogin }: Props) => {
             !isLogin && 
             <div className="flex flex-col gap-2">
             <label htmlFor="email">Email:</label>
-            <input className="border-2 border-black py-1 px-3 rounded" value={state.email} type="email" id="email" onChange={setEmail}  />
+            <input className="border-2 border-black py-1 px-3 rounded" value={state.email} name="email" type="email" id="email" onChange={setEmail}  />
             {/* Custom error message for specific field */}
             {errorMsg && errorMsg.includes("email") && <ErrorMsg msg={errorMsg} />}
             </div>
             }
             <div className="flex flex-col gap-2">
             <label htmlFor="password">Password:</label>
-            <input className="border-2 border-black py-1 px-3 rounded" value={state.password} type="password" id="password" onChange={setPassword} />
+            <input className="border-2 border-black py-1 px-3 rounded" value={state.password} name="password" type="password" id="password" onChange={setPassword} />
             {/* Custom error message for specific field */}
             {errorMsg && errorMsg.includes("Password") && <ErrorMsg msg={errorMsg} />}
             </div>
