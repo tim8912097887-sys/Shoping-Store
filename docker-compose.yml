@@ -1,0 +1,17 @@
+services:
+ # Name of the service
+ frontend: 
+  # Build from the dockerfile
+  build: 
+   context: .
+   dockerfile: Dockerfile
+  # Map the port use on host to the container
+  ports: 
+   - "8080:80"
+  # Restart if the container crash
+  restart: always
+  volumes: 
+   # Bind volumes to mimic the hot reload 
+   - .:/app
+   # Prevent overwrite the node_modules in the container
+   - /app/node_modules

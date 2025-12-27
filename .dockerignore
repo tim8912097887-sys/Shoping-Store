@@ -1,0 +1,8 @@
+node_modules
+dist
+.git
+.gitignore
+cypress
+.env.local
+**/*.test.ts
+**/*.test.tsx
