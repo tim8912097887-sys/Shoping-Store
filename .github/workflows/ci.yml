@@ -43,3 +43,34 @@ jobs:
       command: pnpm exec cypress run
       start: pnpm dev
       wait-on: 'http://localhost:5173'
+ build-and-publish-to-docker-hub: 
+  runs-on: ubuntu-latest
+  # Only bulid after test success
+  needs: test-and-check
+  # Only push when merging to main
+  if: github.ref == 'refs/heads/main'
+  steps: 
+  - name: Checkout code
+    uses: actions/checkout@v4
+  # Buildx is a powerful tool that helps with caching and multi-platform builds
+  - name: Setup Docker Buildx
+    uses: docker/setup-buildx-action@v3
+  # Login to docker hub
+  - name: Login to docker hub
+    uses: docker/login-action@v3
+    with:
+     username: ${{ secrets.DOCKERHUB_USERNAME }}
+     password: ${{ secrets.DOCKERHUB_TOKEN }}
+  # Build docker image
+  - name: Build docker image
+    uses: docker/build-push-action@v5
+    with:
+     context: .
+     push: true
+     # One tag name for the newest version and one for the history track 
+     tags: |
+      ${{ secrets.DOCKERHUB_USERNAME }}/shopping-store:latest
+      ${{ secrets.DOCKERHUB_USERNAME }}/shopping-store:${{ github.sha }}
+     # This uses GitHub's cache to make subsequent builds much faster
+     cache-from: type=gha
+     cache-to: type=gha,mode=max
