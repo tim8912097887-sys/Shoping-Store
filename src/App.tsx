@@ -1,6 +1,8 @@
 import { Outlet } from 'react-router'
 import UserAuthProvider from './contexts/UserAuthProvider'
 import TitleBar from './components/TitleBar'
+import { Suspense } from 'react'
+import { PageLoader } from './components/PageLoader'
 
 function App() {
 
@@ -8,7 +10,9 @@ function App() {
     <>
       <UserAuthProvider>
         <TitleBar />
-         <Outlet/> 
+        <Suspense fallback={<PageLoader/>}>
+          <Outlet/>
+        </Suspense> 
       </UserAuthProvider>     
     </>
   )

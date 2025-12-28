@@ -7,7 +7,7 @@ const TitleBar = () => {
     
 
   return (
-    <header className="w-dvw bg-black">
+    <header className="w-full bg-black">
         <div className="w-full flex justify-between p-5">
             <div>
                <h1 className="text-3xl text-white">Shopping Store</h1>
