@@ -39,7 +39,7 @@ describe("GuestOnly Component",() => {
         )
         // Assert that the GuestOnly component should allow go to login page if is unauthenticated
         expect(screen.getByText(/login form/i)).toBeInTheDocument();
-        expect(screen.queryByText(/home/i)).not.toBeInTheDocument();
+        expect(screen.queryByRole("option",{ name: /all categories/i })).not.toBeInTheDocument();
     })
 
     it('Should render Home page if it is authenticated', () => {
@@ -59,7 +59,7 @@ describe("GuestOnly Component",() => {
             </MemoryRouter>
         )
         // Assert that the GuestOnly component should redirect to home page if is authenticated
-        expect(screen.getByText(/home/i)).toBeInTheDocument();
+        expect(screen.getByRole("option",{ name: /all categories/i })).toBeInTheDocument();
         expect(screen.queryByText(/login form/i)).not.toBeInTheDocument();
     })
 })

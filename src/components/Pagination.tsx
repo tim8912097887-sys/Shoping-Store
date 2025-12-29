@@ -20,7 +20,7 @@ const Pagination = ({ totalPages }: Props) => {
        {/* Display as plain text on the first page */}
        {
         currentPage>0?
-          <Link to={{
+          <Link data-testid="previous-link" to={{
             pathname: "/",
             search: getNewParams({ page: (currentPage-1).toString() })
           }} className="text-2xl flex items-center px-5 py-3 gap-2.5 cursor-pointer hover:bg-gray-500 transition-all duration-200 rounded">
@@ -28,7 +28,7 @@ const Pagination = ({ totalPages }: Props) => {
             <span>Previous</span>
           </Link>
         :
-          <div className="text-2xl rounded flex items-center px-5 py-3 gap-2.5 text-gray-400">
+          <div data-testid="disable-previous" className="text-2xl rounded flex items-center px-5 py-3 gap-2.5 text-gray-400">
             <FaAngleLeft />
             <span>Previous</span>
           </div>
@@ -44,7 +44,7 @@ const Pagination = ({ totalPages }: Props) => {
        {/* Only display first part of dot when the center buttons can't reach third one */}
        {
         currentPage>3 && 
-        <p className="text-2xl text-gray-400">...</p>
+        <p data-testid="first-dot" className="text-2xl text-gray-400">...</p>
        }
        {/* Only display second button alone when the interval between current page and total page is two */}
        {currentPage===3 && 
@@ -81,7 +81,7 @@ const Pagination = ({ totalPages }: Props) => {
        {/* Only display last part of dot when the center buttons can't reach last third one */}
        {
         currentPage<(totalPages-4) && 
-        <p className="text-2xl text-gray-400">...</p>
+        <p data-testid="last-dot" className="text-2xl text-gray-400">...</p>
        }
        {/* Only display last button alone when the center buttons can't reach last one */}
        {
@@ -94,12 +94,12 @@ const Pagination = ({ totalPages }: Props) => {
        {/* Display as plain text on the last page */}
        {
          currentPage===(totalPages-1)?
-           <div className="text-2xl flex items-center px-5 py-3 gap-2.5 text-gray-400 rounded">
+           <div data-testid="disable-next" className="text-2xl flex items-center px-5 py-3 gap-2.5 text-gray-400 rounded">
             <FaAngleRight />
             <span>Next</span>
            </div>
          :
-           <Link to={{
+           <Link data-testid="next-link" to={{
               pathname: "/",
               search: getNewParams({ page: (currentPage+1).toString() })
             }} className="text-2xl flex items-center px-5 py-3 gap-2.5 cursor-pointer hover:bg-gray-500 transition-all duration-200 rounded">

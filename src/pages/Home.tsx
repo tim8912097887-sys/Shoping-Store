@@ -24,7 +24,8 @@ const Home = () => {
     <div className="h-auto w-full flex flex-col items-center py-5">
       <CategoryList/>
       <ProductContainer total={total} setTotal={setTotal} />
-      <Pagination totalPages={totalPages} />
+      {/* Only show pagination when total page is greater than zero */}
+      {total>0 && <Pagination totalPages={totalPages} />}
     </div>
   )
 }

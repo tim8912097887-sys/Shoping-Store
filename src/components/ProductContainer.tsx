@@ -3,6 +3,7 @@ import type { Product } from "../pages/Home"
 import ProductCard from "./ProductCard"
 import { getProducts } from "../apis/product.api"
 import { useSearchFilter } from "../hooks/useSearchFilter"
+import { PageLoader } from "./PageLoader"
 
 type Props = {
     setTotal: (total: number) => void
@@ -29,6 +30,8 @@ const ProductContainer = ({ setTotal,total }:Props) => {
          const respond = await getProducts(filter);
          if(!respond.success) {
            setErrorMsg(respond.errorMsg as string);
+           // When fetch error occur hide the pagination 
+           setTotal(0);
          } else {
            // If total value change,set the new one 
            if(total !== respond.data!.total) setTotal(respond.data!.total);
@@ -39,6 +42,8 @@ const ProductContainer = ({ setTotal,total }:Props) => {
       getFirtPage();
   },[currentPage,category,search])
 
+  if(errorMsg !== "") return <div>{errorMsg}</div>
+  if(loading) return <PageLoader/>;
   return (
     <div className="flex flex-wrap gap-3 justify-center">
        {products.map(product => {

@@ -38,7 +38,7 @@ describe("AuthProtect Component",() => {
             </MemoryRouter>
         )
         // Assert that AuthProtect component will allow go to home page if authenticated
-        expect(screen.getByText(/home/i)).toBeInTheDocument();
+        expect(screen.getByRole("option",{ name: /all categories/i })).toBeInTheDocument();
         expect(screen.queryByText(/login form/i)).not.toBeInTheDocument();
     })
     it('Should render Login page if is not authenticated', () => {
@@ -59,6 +59,6 @@ describe("AuthProtect Component",() => {
         )
         // Assert that will allow navigate to login page if not authenticated
         expect(screen.getByText(/login form/i)).toBeInTheDocument();
-        expect(screen.queryByText(/home/i)).not.toBeInTheDocument();
+        expect(screen.queryByRole("option",{ name: /all categories/i })).not.toBeInTheDocument();
     })
 })
