@@ -61,7 +61,7 @@ const Pagination = ({ totalPages }: Props) => {
             const isActive = pageIdx===currentPage;
 
             return (isActive?
-              <div key={currentPage}>
+              <div data-testid="current-page" key={currentPage}>
                 {currentPage+1}
               </div>
             : 
